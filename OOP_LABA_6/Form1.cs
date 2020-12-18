@@ -130,7 +130,7 @@ namespace OOP_LABA_6
 				}
 			}
 			public override void setX(int k)
-			{
+			{//
 				for (int i = 0; i < count; i++)
 				{
 					group[i].setX(k);
