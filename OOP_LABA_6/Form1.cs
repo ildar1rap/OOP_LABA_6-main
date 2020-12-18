@@ -598,16 +598,12 @@ namespace OOP_LABA_6
 		private void output_Click(object sender, EventArgs e)
 		{
 			paint_box.Refresh();
-			const Int32 BufferSize = 128;
 			using (StreamWriter streamWriter = new StreamWriter(path))
 			{
 				streamWriter.WriteLine(Storage.getN());
 				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 				{
 					streamWriter.WriteLine(Storage.getobj().save());
-					streamWriter.WriteLine(Storage.getobj().getX());
-					streamWriter.WriteLine(Storage.getobj().getY());
-					streamWriter.WriteLine(Storage.getobj().getsize());
 				}
 			}
 
