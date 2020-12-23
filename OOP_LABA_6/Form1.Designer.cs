@@ -36,9 +36,10 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.groupButton = new System.Windows.Forms.Button();
             this.input = new System.Windows.Forms.Button();
             this.output = new System.Windows.Forms.Button();
+            this.unGroupButton = new System.Windows.Forms.Button();
             this.paint_box.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -74,7 +75,7 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
             this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton1.Location = new System.Drawing.Point(3, 13);
+            this.radioButton1.Location = new System.Drawing.Point(3, 12);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(60, 24);
             this.radioButton1.TabIndex = 7;
@@ -86,7 +87,7 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton2.Location = new System.Drawing.Point(3, 43);
+            this.radioButton2.Location = new System.Drawing.Point(4, 42);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(75, 24);
             this.radioButton2.TabIndex = 8;
@@ -98,18 +99,18 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.radioButton1);
             this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Location = new System.Drawing.Point(721, 14);
+            this.panel1.Location = new System.Drawing.Point(721, 10);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(161, 71);
+            this.panel1.Size = new System.Drawing.Size(79, 75);
             this.panel1.TabIndex = 10;
             // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BackColor = System.Drawing.Color.LawnGreen;
-            this.textBox1.Location = new System.Drawing.Point(721, 91);
+            this.textBox1.BackColor = System.Drawing.Color.Green;
+            this.textBox1.Location = new System.Drawing.Point(806, 56);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(123, 20);
             this.textBox1.TabIndex = 12;
             this.textBox1.Click += new System.EventHandler(this.textBox3_Click);
             // 
@@ -117,43 +118,43 @@
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.BackColor = System.Drawing.Color.Aqua;
-            this.textBox2.Location = new System.Drawing.Point(721, 117);
+            this.textBox2.Location = new System.Drawing.Point(806, 20);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.Size = new System.Drawing.Size(123, 20);
             this.textBox2.TabIndex = 13;
             this.textBox2.Click += new System.EventHandler(this.textBox3_Click);
             // 
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.BackColor = System.Drawing.Color.Fuchsia;
-            this.textBox3.Location = new System.Drawing.Point(721, 143);
+            this.textBox3.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox3.Location = new System.Drawing.Point(806, 39);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.Size = new System.Drawing.Size(123, 20);
             this.textBox3.TabIndex = 14;
             this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
             // 
-            // button2
+            // groupButton
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(721, 169);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(161, 46);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "Группировка ";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.groupButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupButton.Location = new System.Drawing.Point(721, 95);
+            this.groupButton.Name = "groupButton";
+            this.groupButton.Size = new System.Drawing.Size(208, 46);
+            this.groupButton.TabIndex = 16;
+            this.groupButton.Text = "Группировка ";
+            this.groupButton.UseVisualStyleBackColor = true;
+            this.groupButton.Click += new System.EventHandler(this.groupButton_Click);
             // 
             // input
             // 
             this.input.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.input.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.input.Location = new System.Drawing.Point(721, 221);
+            this.input.Location = new System.Drawing.Point(721, 199);
             this.input.Name = "input";
-            this.input.Size = new System.Drawing.Size(161, 37);
+            this.input.Size = new System.Drawing.Size(208, 37);
             this.input.TabIndex = 17;
-            this.input.Text = "input";
+            this.input.Text = "Считывание";
             this.input.UseVisualStyleBackColor = true;
             this.input.Click += new System.EventHandler(this.input_Click);
             // 
@@ -161,25 +162,37 @@
             // 
             this.output.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.output.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.output.Location = new System.Drawing.Point(721, 264);
+            this.output.Location = new System.Drawing.Point(721, 242);
             this.output.Name = "output";
-            this.output.Size = new System.Drawing.Size(161, 37);
+            this.output.Size = new System.Drawing.Size(208, 37);
             this.output.TabIndex = 18;
-            this.output.Text = "output";
+            this.output.Text = "Запись";
             this.output.UseVisualStyleBackColor = true;
             this.output.Click += new System.EventHandler(this.output_Click);
+            // 
+            // unGroupButton
+            // 
+            this.unGroupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.unGroupButton.Location = new System.Drawing.Point(721, 147);
+            this.unGroupButton.Name = "unGroupButton";
+            this.unGroupButton.Size = new System.Drawing.Size(208, 46);
+            this.unGroupButton.TabIndex = 19;
+            this.unGroupButton.Text = "Разгруппировка ";
+            this.unGroupButton.UseVisualStyleBackColor = true;
+            this.unGroupButton.Click += new System.EventHandler(this.unGroupButton_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(941, 620);
+            this.Controls.Add(this.unGroupButton);
+            this.Controls.Add(this.groupButton);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.output);
             this.Controls.Add(this.input);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.paint_box);
             this.KeyPreview = true;
@@ -195,7 +208,6 @@
             this.PerformLayout();
 
         }
-        private System.Windows.Forms.Panel paint_box;
         private System.Windows.Forms.Label label_paintbox;
         #endregion
 
@@ -205,9 +217,11 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button groupButton;
         private System.Windows.Forms.Button input;
         private System.Windows.Forms.Button output;
+        private System.Windows.Forms.Button unGroupButton;
+        public System.Windows.Forms.Panel paint_box;
     }
 }
 

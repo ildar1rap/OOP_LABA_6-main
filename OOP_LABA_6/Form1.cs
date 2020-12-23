@@ -12,16 +12,15 @@ using System.IO;
 
 namespace OOP_LABA_6
 {
-    public partial class Main : Form
+	public partial class Main : Form
 	{
-		public mystorage Storage;
+		mystorage Storage;
 		Pen pen = new Pen(Color.Red, 3);
 		TreeViewer newtree;
-
 		public Main()
-        {
+		{
 			InitializeComponent();
-			newtree = new TreeViewer(this);
+			newtree = new TreeViewer(this, selectOBj);
 			Storage = new mystorage();
 			Storage.addObserver(newtree);
 		}
@@ -46,7 +45,7 @@ namespace OOP_LABA_6
 				return _next;
 			}
 			public virtual void FactoryPaint(Panel paint_box, FigureAbstract figure, Pen pen) { }
-			
+
 			public virtual void moveX(int k) { }
 			public virtual void moveY(int k) { }
 			public virtual void changeSize(int k) { }
@@ -59,13 +58,13 @@ namespace OOP_LABA_6
 				return 0;
 			}
 
-			public virtual void setColor(Color changeColor) 
+			public virtual void setColor(Color changeColor)
 			{
 				FigureIFColor = changeColor;
 			}
 			public virtual void setX(int k) { }
 			public virtual void setY(int k) { }
-			public virtual bool checkFigure(FigureAbstract figure, MouseEventArgs e, Panel paint_box, Pen pen) 
+			public virtual bool checkFigure(FigureAbstract figure, MouseEventArgs e, Panel paint_box, Pen pen)
 			{
 				return false;
 			}
@@ -79,17 +78,15 @@ namespace OOP_LABA_6
 		{
 			public virtual FigureAbstract FactoryPaintNEW(Panel paint_box, Pen pen, string code, string x, string y, string dlina)
 			{
-				int x1=Convert.ToInt32(x), y1=Convert.ToInt32(y), dlina1= Convert.ToInt32(dlina);
-				
 				FigureAbstract figure;
 				switch (code)
 				{
 					case "Line":
-						figure = new Line(x1, y1,dlina1);
+						figure = new Line(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(dlina));
 						figure.FactoryPaint(paint_box, figure, pen);
 						return figure;
 					case "Сircle":
-						figure = new Сircle(x1, y1, dlina1);
+						figure = new Сircle(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(dlina));
 						figure.FactoryPaint(paint_box, figure, pen);
 						return figure;
 				}
@@ -101,7 +98,7 @@ namespace OOP_LABA_6
 		{
 			public override string save()
 			{
-				string save1= "<>\n";
+				string save1 = "<>\n";
 				for (int i = 0; i < count; i++)
 				{
 					save1 += group[i].save() + "\n";
@@ -111,7 +108,7 @@ namespace OOP_LABA_6
 			}
 			private int maxcount = 10;
 			public int count;
-			public FigureAbstract[] group; //public
+			public FigureAbstract[] group;
 			public GroupFigures()//конструктор с параметрами
 			{
 				count = 0;
@@ -121,12 +118,10 @@ namespace OOP_LABA_6
 			{
 				if (count >= maxcount)
 					return;
-				
 				count++;
-				
 				group[count - 1] = newOBJECT;
 			}
-			public override void setColor(Color changeColor) 
+			public override void setColor(Color changeColor)
 			{
 				this.FigureIFColor = changeColor;
 				for (int i = 0; i < count; i++)
@@ -148,7 +143,7 @@ namespace OOP_LABA_6
 					group[i].setY(k);
 				}
 			}
-			public override void moveX(int k) 
+			public override void moveX(int k)
 			{
 				for (int i = 0; i < count; i++)
 				{
@@ -159,7 +154,7 @@ namespace OOP_LABA_6
 			{
 				for (int i = 0; i < count; i++)
 				{
-					this.group[i].moveY(k);
+					group[i].moveY(k);
 				}
 			}
 			public override bool checkFigure(FigureAbstract figure, MouseEventArgs e, Panel paint_box, Pen pen)
@@ -175,14 +170,14 @@ namespace OOP_LABA_6
 				}
 				return false;
 			}
-			public override void changeSize(int k) 
+			public override void changeSize(int k)
 			{
 				for (int i = 0; i < count; i++)
 				{
 					group[i].changeSize(k);
 				}
 			}
-			public override void FactoryPaint(Panel paint_box, FigureAbstract figure, Pen pen) 
+			public override void FactoryPaint(Panel paint_box, FigureAbstract figure, Pen pen)
 			{
 				for (int i = 0; i < count; i++)
 				{
@@ -191,8 +186,6 @@ namespace OOP_LABA_6
 				}
 			}
 		}
-
-
 		public class FigureIF : FigureAbstract //класс фигур
 		{
 			private int x, y; // точки
@@ -208,7 +201,7 @@ namespace OOP_LABA_6
 			}
 			public override void setX(int k)
 			{
-				x+=k;
+				x += k;
 			}
 			public override int getY()
 			{
@@ -229,7 +222,7 @@ namespace OOP_LABA_6
 			public override string save()
 			{
 				string objec = "";
-				objec += "Line\n" + getX() + "\n"+ getY() + "\n" + getsize();
+				objec += "Line\n" + getX() + "\n" + getY() + "\n" + getsize();
 				return objec;
 			}
 			private int LineLength = 50; // длина линии
@@ -242,27 +235,21 @@ namespace OOP_LABA_6
 			{
 				LineLength = dlina;
 			}
-			public int getLineLength()
-			{
-				return LineLength;
-			}
-			public void setLineLength(int LineLength)
-			{
-				this.LineLength=LineLength;
-			}
 			public override void FactoryPaint(Panel paint_box, FigureAbstract figure, Pen pen)
 			{
 				pen.Color = figure.getColor();//перекрываю метод, фабричного метода
-				paint_box.CreateGraphics().DrawLine(pen, figure.getX() - getLineLength(),
-					figure.getY(), figure.getX() + getLineLength(), figure.getY());
+				pen.Width = 5;
+				paint_box.CreateGraphics().DrawLine(pen, figure.getX() - getsize(),
+					figure.getY(), figure.getX() + getsize(), figure.getY());
+				pen.Width = 3;
 			}
-			public override void changeSize(int k) 
+			public override void changeSize(int k)
 			{
 				LineLength += k;
 			}
 			public override void moveX(int k)
 			{
-				if (getX() - LineLength > 0 )
+				if (getX() - LineLength > 0)
 				{
 					this.setX(k);
 				}
@@ -280,8 +267,8 @@ namespace OOP_LABA_6
 			}
 			public override bool checkFigure(FigureAbstract figure, MouseEventArgs e, Panel paint_box, Pen pen)
 			{
-				if (e.X >= figure.getX() - getLineLength()
-					&& e.X <= figure.getX() + getLineLength()
+				if (e.X >= figure.getX() - getsize()
+					&& e.X <= figure.getX() + getsize()
 					&& e.Y >= figure.getY() - 2
 					&& e.Y <= figure.getY() + 2)
 				{
@@ -290,38 +277,29 @@ namespace OOP_LABA_6
 				else return false;
 			}
 		}
-
 		class Сircle : FigureIF
-        {
+		{
 			public override string save()
 			{
 				string objec = "";
 				objec += "Сircle\n" + getX() + "\n" + getY() + "\n" + getsize();
 				return objec;
 			}
-			private int СircleRad = 30; //радиус круга
+			private int СircleRad = 35; //радиус круга
 			public override int getsize() { return СircleRad; }
-			public Сircle(int x, int y) : base(x,y)//конструктор с параметрами
-            {
+			public Сircle(int x, int y) : base(x, y)//конструктор с параметрами
+			{
 
 			}
 			public Сircle(int x, int y, int dlina) : base(x, y)//конструктор с параметрами
 			{
 				СircleRad = dlina;
 			}
-			public int getRad()
-			{
-				return СircleRad;
-			}
-			public void setRad(int СircleRad)
-			{
-				this.СircleRad = СircleRad;
-			}
 			public override void FactoryPaint(Panel paint_box, FigureAbstract figure, Pen pen)
 			{
 				pen.Color = figure.getColor();//перекрываю метод фабричный
-				paint_box.CreateGraphics().DrawEllipse(pen, figure.getX() - getRad(),
-						figure.getY() - getRad(), getRad() * 2, getRad() * 2);
+				paint_box.CreateGraphics().DrawEllipse(pen, figure.getX() - getsize(),
+						figure.getY() - getsize(), getsize() * 2, getsize() * 2);
 			}
 			public override void changeSize(int k)
 			{
@@ -349,73 +327,54 @@ namespace OOP_LABA_6
 			{
 				if ((figure.getX() - e.X) * (figure.getX() - e.X) +
 					(figure.getY() - e.Y) * (figure.getY() - e.Y)
-					<= getRad() * getRad())
+					<= getsize() * getsize())
 				{
 					return true;
 				}
 				else return false;
 			}
 		}
-
 		public class Observer
-        {
+		{
 			public virtual void onSubjectChanged(mystorage who) { }
-        }
+		}
 		public class LipkiiObserver : Observer
-        {
+		{
 
-        }
-		
+		}
 		public class TreeViewer : Observer
 		{
 			TreeView tree;
-			public TreeViewer(Form form)
-            {
+			public delegate void func(TreeView tree, TreeNode tn);
+			func selectOBj;
+			public TreeViewer(Form form, func temp)
+			{
+				selectOBj = temp;
 				tree = new TreeView();
-				tree.Location = new System.Drawing.Point(721, 310);
-				tree.Size = new System.Drawing.Size(208, 300);
+				tree.Location = new System.Drawing.Point(721, 290);
+				tree.Size = new System.Drawing.Size(208, 322);
+				tree.Font = new Font("Microsoft Sans Serif", 14);
 				tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 				form.Controls.Add(tree);
 			}
 			public void tree_AfterSelect(object sender, TreeViewEventArgs e)//Выделение через дерево
 			{
-				if (e.Node.Parent != null && e.Node.Parent.Text != "Фигуры")
-				{
-					selectOBj(tree, e.Node.Parent);
-				}
-			}
-			public void selectOBj(TreeView tree, TreeNode tn)
-			{
-				if (tn.Parent != null && tn.Parent.Text != "Фигуры")
-				{
-					selectOBj(tree, tn.Parent);
-				}
-				else
-				{
-					int index = tn.Parent.Index, check = 0;
-                    //for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
-                    //{
-                    //    if (check == index)
-                    //    {
-                    //        printFigure(Storage.getobj(), Color.Orange);
-                    //        continue;
-                    //    }
-                    //    printFigure(Storage.getobj(), Color.Red);
-                    //    check++;
-                    //}
+                if (e.Node.Parent != null && e.Action == TreeViewAction.ByMouse)
+                {
+                    selectOBj(tree, e.Node);
                 }
-			}
+            }
 			public void treeSelect(int index)
-            {
+			{
 				tree.SelectedNode = tree.Nodes[0].Nodes[index];
 				tree.Focus();
 			}
 			public void treeClear()
-            {
+			{
 				tree.Nodes.Clear();
 			}
 			public override void onSubjectChanged(mystorage who)
-            {
+			{
 				tree.Nodes.Clear();
 				tree.Nodes.Add("Фигуры");
 				for (who.First(); who.EOL(); who.Next())//нашли next = obj 
@@ -429,7 +388,6 @@ namespace OOP_LABA_6
 				string name = o.save().TrimEnd(MyChar);
 				if (name.Length > 6)
 					name = "Group";
-
 				TreeNode node = tn.Nodes.Add(name);
 				node.EnsureVisible();
 				if (o is GroupFigures)
@@ -439,10 +397,31 @@ namespace OOP_LABA_6
 						processNode(node, (o as GroupFigures).group[i]);
 					}
 				}
-
 			}
 		}
-		
+		public void selectOBj(TreeView tree, TreeNode tn)
+		{
+			if (tn.Parent.Text != "Фигуры")
+			{
+				selectOBj(tree, tn.Parent);
+			}
+			else
+			{
+				int index = tn.Index, check = 0;
+				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
+				{
+					if (check == index)
+					{
+						printFigure(Storage.getobj(), Color.Orange);
+						check++;
+						continue;
+					}
+					printFigure(Storage.getobj(), Color.Red);
+					check++;
+				}
+				return;
+			}
+		}
 		public class CStorage : ICloneable
 		{
 			List<Observer> observers;
@@ -451,22 +430,22 @@ namespace OOP_LABA_6
 				observers = new List<Observer>();
 			}
 			public void addObserver(Observer o)
-            {
+			{
 				observers.Add(o);
-            }
+			}
 			public void notifyEveryone(mystorage stor)
-            {
-                foreach (var item in observers)
-                {
-                    item.onSubjectChanged(stor);
-                }
-            }
+			{
+				foreach (var item in observers)
+				{
+					item.onSubjectChanged(stor);
+				}
+			}
 			public object Clone()
 			{
 				return this.MemberwiseClone();
 			}
 		}
-		public class mystorage : CStorage 
+		public class mystorage : CStorage
 		{
 			private FigureAbstract head;//головной узел
 			private FigureAbstract next;//следующий узел
@@ -481,7 +460,7 @@ namespace OOP_LABA_6
 			{
 				return N;
 			}
-			public void setN(int k) 
+			public void setN(int k)
 			{
 				this.N = k;
 			}
@@ -497,20 +476,16 @@ namespace OOP_LABA_6
 				mystorage stor = (mystorage)this.Clone();
 				notifyEveryone(stor);
 			}
-			
-			//(Person) p1.Clone();
 			public FigureAbstract First()
 			{
 				next = head;//присваиваю next головному узлу
 				return next;
 			}
-
 			public FigureAbstract Next()
 			{
 				next = next.getnext();//присваиваю next след.
 				return next;
 			}
-
 			public bool EOL()
 			{//проверка на пустоту
 				if (next == null)
@@ -520,10 +495,6 @@ namespace OOP_LABA_6
 			public FigureAbstract getobj()
 			{//возвращаю next
 				return next;
-			}
-			public FigureAbstract getEND()
-			{//возвращаю next
-				return end;
 			}
 			public void delobj(FigureAbstract selobj)
 			{//удаление объекта
@@ -560,7 +531,7 @@ namespace OOP_LABA_6
 					delcounter(selobj as GroupFigures, ref delcount);
 				}
 				selobj = null;
-				N-= delcount;
+				N -= delcount;
 
 				mystorage stor = (mystorage)this.Clone();
 				notifyEveryone(stor);
@@ -585,12 +556,10 @@ namespace OOP_LABA_6
 				select.setnext(obj);
 				if (end == select)
 					end = obj;
-
 				mystorage stor = (mystorage)this.Clone();
 				notifyEveryone(stor);
 			}
 		}
-
 		public bool clickCheck(MouseEventArgs e, TreeViewer currentTree)
 		{
 			bool check = false;
@@ -614,11 +583,9 @@ namespace OOP_LABA_6
 			}
 			return check;
 		}
-
 		private void paint_box_MouseClick(object sender, MouseEventArgs e)
 		{
-			
-			if (clickCheck(e,newtree)) //проверка 
+			if (clickCheck(e, newtree)) //проверка 
 			{
 				return;
 			}
@@ -631,67 +598,62 @@ namespace OOP_LABA_6
 			{
 				obj = new Line(e.X, e.Y);//если нажимаю на пустое место - создаю линию
 			}
-
 			printFigure(obj, Color.Orange); //метод printFigure
 			label_paintbox.Visible = false;
-
 			Storage.add(obj);//добавляю в хранилище
 			int count = 0;
 			for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 			{
 				if (Storage.getobj() == obj)
-                {
+				{
 					newtree.treeSelect(count);
 					return;
-                }
+				}
 				count++;
 			}
 		}
-
 		private void Main_KeyDown(object sender, KeyEventArgs e)
 		{
 			int k = 5;
 			if (e.KeyCode.Equals(Keys.A) || e.KeyCode.Equals(Keys.D))
 			{ //если нажал влево или вправо 
+				paint_box.Refresh();
 				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 				{
 					if (Storage.getobj().getColor() == Color.Orange && e.KeyCode.Equals(Keys.A))
 						Storage.getobj().moveX(-k); //если влево
-					else if(Storage.getobj().getColor() == Color.Orange)
+					else if (Storage.getobj().getColor() == Color.Orange)
 						Storage.getobj().moveX(k); //если вправо
-				}
-				paint_box.Refresh();
-				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 					Storage.getobj().FactoryPaint(paint_box, Storage.getobj(), pen);
+				}
 			}
 			else if (e.KeyCode.Equals(Keys.W) || e.KeyCode.Equals(Keys.S))
 			{ //если нажал вверх или вниз
+				paint_box.Refresh();
 				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 				{
 					if (Storage.getobj().getColor() == Color.Orange && e.KeyCode.Equals(Keys.W))
 						Storage.getobj().moveY(-k); //если вверх
-					else if(Storage.getobj().getColor() == Color.Orange)
+					else if (Storage.getobj().getColor() == Color.Orange)
 						Storage.getobj().moveY(k); //если вниз
-				}
-				paint_box.Refresh();
-				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 					Storage.getobj().FactoryPaint(paint_box, Storage.getobj(), pen);
+				}
 			}
-			else if(e.KeyCode.Equals(Keys.Add) || e.KeyCode.Equals(Keys.Subtract))
+			else if (e.KeyCode.Equals(Keys.Add) || e.KeyCode.Equals(Keys.Subtract))
 			{ //если нажал + или -
+				paint_box.Refresh();
 				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 				{
 					if (Storage.getobj().getColor() == Color.Orange && e.KeyCode.Equals(Keys.Add))
 						Storage.getobj().changeSize(k);
 					else if (Storage.getobj().getColor() == Color.Orange)
 						Storage.getobj().changeSize(-k);
-				}
-				paint_box.Refresh();
-				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 					Storage.getobj().FactoryPaint(paint_box, Storage.getobj(), pen);
+				}
 			}
 			else if (e.KeyCode.Equals(Keys.Delete))
 			{ //если нажал delete
+				paint_box.Refresh();
 				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 				{
 					if (Storage.getobj().getColor() == Color.Orange)
@@ -699,38 +661,30 @@ namespace OOP_LABA_6
 						Storage.delobj(Storage.getobj());//удаляю объект выделенный
 						continue;
 					}
-				}
-				paint_box.Refresh();
-				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
-				{
 					Storage.getobj().FactoryPaint(paint_box, Storage.getobj(), pen);
 				}
 			}
 		}
 		private void textBox3_Click(object sender, EventArgs e)
 		{
+			paint_box.Refresh();
 			for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 			{
 				if (Storage.getobj().getColor() == Color.Orange)
 				{
 					Storage.getobj().setColor(((TextBox)sender).BackColor);
 				} //изменение цвета
-			}
-			paint_box.Refresh();
-			for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
-			{
 				Storage.getobj().FactoryPaint(paint_box, Storage.getobj(), pen);
 			}
 		}
-		private void button2_Click(object sender, EventArgs e)
+		private void groupButton_Click(object sender, EventArgs e)
 		{
 			int n = Storage.getN();
 			groupAdder();
 			Storage.setN(n);
 		}
-
 		public void groupAdder()
-        {
+		{
 			GroupFigures newOBJECT = new GroupFigures();
 			bool check = true;
 			int count = 0, countTree = 0;
@@ -768,32 +722,30 @@ namespace OOP_LABA_6
 			}
 
 		}
-
 		string path = @"C:\OOP_LABA7\filename.txt";
-
 		private void input_Click(object sender, EventArgs e)
 		{
 			Storage = new mystorage();
 			Storage.addObserver(newtree);
 			paint_box.Refresh();
-			String smth,code="", x="", y="", dlina=""; int countFigures = 0;
-			using (StreamReader streamReader = new StreamReader(path))
+			String smth, code = "", x = "", y = "", dlina = ""; int countFigures = 0;
+			using (StreamReader sr = new StreamReader(path))
 			{
 				factory fact = new factory();
-				countFigures = Convert.ToInt32(streamReader.ReadLine());
+				countFigures = Convert.ToInt32(sr.ReadLine());
 				countFigures = countFigures * 4;
 				while (countFigures > 0)
 				{
-					smth = streamReader.ReadLine();
+					smth = sr.ReadLine();
 					if (smth == "<>")
 					{
 						Stack<string> stack = new Stack<string>();
 						Stack<string> stkFinal = new Stack<string>();
 						List<FigureAbstract> list = new List<FigureAbstract>();
 						stack.Push("<>");
-                        while (stack.Count != 0)
-                        {
-							smth = streamReader.ReadLine();
+						while (stack.Count != 0)
+						{
+							smth = sr.ReadLine();
 							if (smth == "</>")
 							{
 								GroupFigures newOBJECT = new GroupFigures();
@@ -839,15 +791,34 @@ namespace OOP_LABA_6
 							}
 						}
 					}
-                    else
-                    {
-						Storage.add(fact.FactoryPaintNEW(paint_box, pen, smth, streamReader.ReadLine()
-							, streamReader.ReadLine(), streamReader.ReadLine()));
+					else
+					{
+						Storage.add(fact.FactoryPaintNEW(paint_box, pen, smth, sr.ReadLine()
+							, sr.ReadLine(), sr.ReadLine()));
 						countFigures -= 4;
 					}
-						
+
 				}
 			}
 		}
-	}
+        private void unGroupButton_Click(object sender, EventArgs e)
+        {
+			int n = Storage.getN();
+			for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
+			{
+				if (Storage.getobj().getColor() == Color.Orange && Storage.getobj() is GroupFigures)
+				{
+					for(int i= (Storage.getobj() as GroupFigures).count-1; i>=0; i--)
+                    {
+						Storage.adddown((Storage.getobj() as GroupFigures).group[i], Storage.getobj());
+					}
+					Storage.delobj(Storage.getobj());
+					Storage.setN(n);
+					return;
+				}
+			}
+			Storage.setN(n);
+		}
+
+    }
 }
