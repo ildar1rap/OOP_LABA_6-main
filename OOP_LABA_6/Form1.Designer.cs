@@ -1,6 +1,6 @@
 ﻿namespace OOP_LABA_6
 {
-    partial class Main
+    public partial class Main
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -32,18 +32,13 @@
             this.label_paintbox = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.input = new System.Windows.Forms.Button();
             this.output = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.paint_box.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -59,7 +54,7 @@
             this.paint_box.Location = new System.Drawing.Point(9, 10);
             this.paint_box.Margin = new System.Windows.Forms.Padding(2);
             this.paint_box.Name = "paint_box";
-            this.paint_box.Size = new System.Drawing.Size(628, 533);
+            this.paint_box.Size = new System.Drawing.Size(695, 601);
             this.paint_box.TabIndex = 0;
             this.paint_box.MouseClick += new System.Windows.Forms.MouseEventHandler(this.paint_box_MouseClick);
             // 
@@ -98,83 +93,51 @@
             this.radioButton2.Text = "Линия";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton3.Location = new System.Drawing.Point(3, 73);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(119, 24);
-            this.radioButton3.TabIndex = 9;
-            this.radioButton3.Text = "radioButton3";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.radioButton1);
-            this.panel1.Controls.Add(this.radioButton3);
             this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Location = new System.Drawing.Point(642, 14);
+            this.panel1.Location = new System.Drawing.Point(721, 14);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(161, 113);
+            this.panel1.Size = new System.Drawing.Size(161, 71);
             this.panel1.TabIndex = 10;
             // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.BackColor = System.Drawing.Color.LawnGreen;
-            this.textBox1.Location = new System.Drawing.Point(642, 251);
+            this.textBox1.Location = new System.Drawing.Point(721, 91);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 12;
-            this.textBox1.Click += new System.EventHandler(this.textBox4_Click);
+            this.textBox1.Click += new System.EventHandler(this.textBox3_Click);
             // 
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.BackColor = System.Drawing.Color.Aqua;
-            this.textBox2.Location = new System.Drawing.Point(642, 277);
+            this.textBox2.Location = new System.Drawing.Point(721, 117);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 13;
-            this.textBox2.Click += new System.EventHandler(this.textBox4_Click);
+            this.textBox2.Click += new System.EventHandler(this.textBox3_Click);
             // 
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3.BackColor = System.Drawing.Color.Fuchsia;
-            this.textBox3.Location = new System.Drawing.Point(642, 303);
+            this.textBox3.Location = new System.Drawing.Point(721, 143);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 14;
-            this.textBox3.Click += new System.EventHandler(this.textBox4_Click);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(642, 133);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(161, 40);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Изменение цвета";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // textBox4
-            // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(645, 179);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 15;
-            this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
+            this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
             // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(642, 342);
+            this.button2.Location = new System.Drawing.Point(721, 169);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(161, 46);
             this.button2.TabIndex = 16;
@@ -184,8 +147,9 @@
             // 
             // input
             // 
+            this.input.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.input.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.input.Location = new System.Drawing.Point(642, 394);
+            this.input.Location = new System.Drawing.Point(721, 221);
             this.input.Name = "input";
             this.input.Size = new System.Drawing.Size(161, 37);
             this.input.TabIndex = 17;
@@ -195,8 +159,9 @@
             // 
             // output
             // 
+            this.output.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.output.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.output.Location = new System.Drawing.Point(642, 437);
+            this.output.Location = new System.Drawing.Point(721, 264);
             this.output.Name = "output";
             this.output.Size = new System.Drawing.Size(161, 37);
             this.output.TabIndex = 18;
@@ -204,24 +169,14 @@
             this.output.UseVisualStyleBackColor = true;
             this.output.Click += new System.EventHandler(this.output_Click);
             // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(642, 492);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 19;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 552);
-            this.Controls.Add(this.textBox5);
+            this.ClientSize = new System.Drawing.Size(941, 620);
             this.Controls.Add(this.output);
             this.Controls.Add(this.input);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -246,18 +201,13 @@
 
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button input;
         private System.Windows.Forms.Button output;
-        private System.Windows.Forms.TextBox textBox5;
     }
 }
 
