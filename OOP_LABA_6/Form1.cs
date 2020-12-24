@@ -26,15 +26,15 @@ namespace OOP_LABA_6
 		}
 		public class FigureAbstract : ICloneable
 		{
-			public virtual string save()
-			{
-				return "";
-			}
 			private FigureAbstract _next;//указатель на некст объект
 			protected Color FigureIFColor = Color.Orange;//цвет;
 			public Color getColor()
 			{
 				return FigureIFColor;
+			}
+			public virtual string save()
+			{
+				return "";
 			}
 			public virtual void setnext(FigureAbstract obj)//метод set next
 			{//задаем _next
@@ -69,6 +69,19 @@ namespace OOP_LABA_6
 				return false;
 			}
 			public virtual int getsize() { return 0; }
+			
+			List<Observer> observersFigure = new List<Observer>();
+			public void addObserver(Observer o)
+			{
+				observersFigure.Add(o);
+			}
+			public void notifyEveryone(FigureAbstract obj)
+			{
+				foreach (var item in observersFigure)
+				{
+					item.onSubjectChanged(obj);
+				}
+			}
 			public object Clone()
 			{
 				return this.MemberwiseClone();
@@ -148,6 +161,8 @@ namespace OOP_LABA_6
 				for (int i = 0; i < count; i++)
 				{
 					group[i].moveX(k);
+
+					notifyEveryone(group[i]);
 				}
 			}
 			public override void moveY(int k)
@@ -155,6 +170,7 @@ namespace OOP_LABA_6
 				for (int i = 0; i < count; i++)
 				{
 					group[i].moveY(k);
+					notifyEveryone(group[i]);
 				}
 			}
 			public override bool checkFigure(FigureAbstract figure, MouseEventArgs e, Panel paint_box, Pen pen)
@@ -217,7 +233,7 @@ namespace OOP_LABA_6
 			obj.setColor(color);
 			obj.FactoryPaint(paint_box, obj, pen);
 		}
-		class Line : FigureIF
+		public class Line : FigureIF
 		{
 			public override string save()
 			{
@@ -255,6 +271,8 @@ namespace OOP_LABA_6
 				}
 				else
 					this.setX(Math.Abs(k));
+
+				notifyEveryone(this);
 			}
 			public override void moveY(int k)
 			{
@@ -264,6 +282,8 @@ namespace OOP_LABA_6
 				}
 				else
 					this.setY(Math.Abs(k));
+
+				notifyEveryone(this);
 			}
 			public override bool checkFigure(FigureAbstract figure, MouseEventArgs e, Panel paint_box, Pen pen)
 			{
@@ -277,7 +297,7 @@ namespace OOP_LABA_6
 				else return false;
 			}
 		}
-		class Сircle : FigureIF
+		public class Сircle : FigureIF
 		{
 			public override string save()
 			{
@@ -313,6 +333,7 @@ namespace OOP_LABA_6
 				}
 				else
 					this.setX(Math.Abs(k));
+				notifyEveryone(this);
 			}
 			public override void moveY(int k)
 			{
@@ -322,6 +343,7 @@ namespace OOP_LABA_6
 				}
 				else
 					this.setY(Math.Abs(k));
+				notifyEveryone(this);
 			}
 			public override bool checkFigure(FigureAbstract figure, MouseEventArgs e, Panel paint_box, Pen pen)
 			{
@@ -337,9 +359,93 @@ namespace OOP_LABA_6
 		public class Observer
 		{
 			public virtual void onSubjectChanged(mystorage who) { }
+			public virtual void onSubjectChanged(FigureAbstract obj) { }
 		}
-		public class LipkiiObserver : Observer
+		public class StickyObserver : Observer
 		{
+			mystorage storageCopy;
+            public StickyObserver(mystorage stor)
+            {
+				storageCopy = (mystorage)stor.Clone();
+			}
+			public bool checkLine(FigureAbstract obj, FigureAbstract storageObj)
+            {
+				if(obj.getX() + obj.getsize() >= storageObj.getX() - storageObj.getsize()
+					&& obj.getX() - obj.getsize() <= storageObj.getX() + storageObj.getsize()
+					&& obj.getY() >= storageObj.getY() - 2
+					&& obj.getY() <= storageObj.getY() + 2)
+					return true;
+				else
+					return false;
+			}
+			public bool checkCircle(FigureAbstract obj, FigureAbstract storageObj)
+			{
+				int N = (storageObj.getX() - obj.getX()) * (storageObj.getX() - obj.getX()) +
+					(storageObj.getY() - obj.getY()) * (storageObj.getY() - obj.getY());
+				if ((storageObj.getX() - obj.getX()) * (storageObj.getX() - obj.getX()) +
+					(storageObj.getY() - obj.getY()) * (storageObj.getY() - obj.getY())
+					<= (obj.getsize() + storageObj.getsize()) *( obj.getsize() + storageObj.getsize())+1)
+					return true;
+				else 
+					return false;
+			}
+			public bool FigureCheck(FigureAbstract obj, FigureAbstract storageObj, string name)
+            {
+                switch (name)
+                {
+					case "Сircle":
+						if (checkCircle(obj, storageObj))
+							return true;
+						break;
+
+					case "Line":
+						if (checkLine(obj, storageObj))
+							return true;
+						break;
+
+					case "<>":
+						for (int i = 0; i < (storageObj as GroupFigures).count; i++)
+						{
+							string name1 = (storageObj as GroupFigures).group[i].save();
+							name1 = name1.Remove(name1.IndexOf('\n'), name1.Length - name1.IndexOf('\n'));
+
+							if (FigureCheck(obj, (storageObj as GroupFigures).group[i], name1))
+							{
+								storageCopy.getobj().setColor(Color.Orange);
+								return true;
+							}
+							else 
+								return false;
+						}
+						break;
+				}
+				return false;
+            }
+			public override void onSubjectChanged(FigureAbstract obj)
+			{
+				for (storageCopy.First(); storageCopy.EOL(); storageCopy.Next())//нашли next = obj 
+				{
+					if (storageCopy.getobj() is GroupFigures)
+					{
+						for (int i = 0; i < (storageCopy.getobj() as GroupFigures).count; i++)
+						{
+							string name1 = (storageCopy.getobj() as GroupFigures).group[i].save();
+							name1 = name1.Remove(name1.IndexOf('\n'), name1.Length - name1.IndexOf('\n'));
+
+							if (FigureCheck(obj, (storageCopy.getobj() as GroupFigures).group[i], name1))
+								storageCopy.getobj().setColor(Color.Orange);
+						}
+					}
+					else
+					{
+						string name1 = storageCopy.getobj().save();
+						name1 = name1.Remove(name1.IndexOf('\n'), name1.Length - name1.IndexOf('\n'));
+						if (FigureCheck(obj, storageCopy.getobj(),name1))
+							storageCopy.getobj().setColor(Color.Orange);
+					}
+					
+				}
+			}
 
 		}
 		public class TreeViewer : Observer
@@ -351,9 +457,10 @@ namespace OOP_LABA_6
 			{
 				selectOBj = temp;
 				tree = new TreeView();
-				tree.Location = new System.Drawing.Point(721, 290);
-				tree.Size = new System.Drawing.Size(208, 322);
+				tree.Location = new System.Drawing.Point(721, 298);
+				tree.Size = new System.Drawing.Size(208, 313);
 				tree.Font = new Font("Microsoft Sans Serif", 14);
+				tree.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
 				tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 				form.Controls.Add(tree);
 			}
@@ -621,9 +728,9 @@ namespace OOP_LABA_6
 				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 				{
 					if (Storage.getobj().getColor() == Color.Orange && e.KeyCode.Equals(Keys.A))
-						Storage.getobj().moveX(-k); //если влево
+						Storage.getobj().moveX(-1); //если влево
 					else if (Storage.getobj().getColor() == Color.Orange)
-						Storage.getobj().moveX(k); //если вправо
+						Storage.getobj().moveX(1); //если вправо
 					Storage.getobj().FactoryPaint(paint_box, Storage.getobj(), pen);
 				}
 			}
@@ -633,9 +740,9 @@ namespace OOP_LABA_6
 				for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
 				{
 					if (Storage.getobj().getColor() == Color.Orange && e.KeyCode.Equals(Keys.W))
-						Storage.getobj().moveY(-k); //если вверх
+						Storage.getobj().moveY(-1); //если вверх
 					else if (Storage.getobj().getColor() == Color.Orange)
-						Storage.getobj().moveY(k); //если вниз
+						Storage.getobj().moveY(1); //если вниз
 					Storage.getobj().FactoryPaint(paint_box, Storage.getobj(), pen);
 				}
 			}
@@ -720,7 +827,8 @@ namespace OOP_LABA_6
 					streamWriter.WriteLine(Storage.getobj().save());
 				}
 			}
-
+			Storage = new mystorage();
+			Storage.addObserver(newtree);
 		}
 		string path = @"C:\OOP_LABA7\filename.txt";
 		private void input_Click(object sender, EventArgs e)
@@ -820,5 +928,16 @@ namespace OOP_LABA_6
 			Storage.setN(n);
 		}
 
+        private void button1_Click(object sender, EventArgs e)
+		{
+			StickyObserver observ = new StickyObserver(Storage);
+			for (Storage.First(); Storage.EOL(); Storage.Next())//нашли next = obj 
+			{
+				if (Storage.getobj().getColor() == Color.Orange)
+				{
+					Storage.getobj().addObserver(observ);
+				}
+			}
+		}
     }
 }
